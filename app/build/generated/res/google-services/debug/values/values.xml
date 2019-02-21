@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1017410180350-qr9v3rbsus0vtt0aai103fe9vnm9n7p3.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://logistic-5f4bd.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1017410180350</string>
+    <string name="google_api_key" translatable="false">AIzaSyDpXDriVO6sP9ufAl8r1LskEC9FEN6idaU</string>
+    <string name="google_app_id" translatable="false">1:1017410180350:android:fa0d1173a3467cd8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDpXDriVO6sP9ufAl8r1LskEC9FEN6idaU</string>
+    <string name="google_storage_bucket" translatable="false">logistic-5f4bd.appspot.com</string>
+    <string name="project_id" translatable="false">logistic-5f4bd</string>
+</resources>
