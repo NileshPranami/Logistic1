@@ -1,4 +1,4 @@
-#Wed Feb 20 22:29:26 IST 2019
+#Thu Feb 21 23:34:50 IST 2019
 base.0=F\:\\Project\\Logistic\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
 path.0=classes.dex
 renamed.0=classes.dex

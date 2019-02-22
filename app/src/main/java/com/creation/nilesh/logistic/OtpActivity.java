@@ -35,7 +35,6 @@ public class OtpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editText = findViewById(R.id.editTextCode);
         String phonenumber = getIntent().getStringExtra("phonenumber");
-        String identity = getIntent().getStringExtra("identity");
         sendVerificationCode(phonenumber);
 
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
@@ -63,13 +62,14 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {
+
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            sendUserData();
-                            Intent intent = new Intent(OtpActivity.this, NavigationActivity.class);
+                            Intent intent = new Intent(OtpActivity.this, GetInformationActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
@@ -82,13 +82,7 @@ public class OtpActivity extends AppCompatActivity {
                 });
     }
 
-    private void sendUserData() {
-        final FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        if(firebaseUser!=null){
-            FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-            DatabaseReference myRef= firebaseDatabase.getReference(mAuth.getUid());
-        }
-    }
+
 
     private void sendVerificationCode(String number){
 

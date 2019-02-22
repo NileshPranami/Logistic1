@@ -14,8 +14,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText editText;
-    private RadioGroup userGroup;
-    private RadioButton radioButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -29,13 +27,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void starter(){
-        userGroup=findViewById(R.id.radioGroup);
         editText=findViewById(R.id.phoneText);
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selected= userGroup.getCheckedRadioButtonId();
-                radioButton=findViewById(selected);
+
                 String number = editText.getText().toString().trim();
 
                 if (number.isEmpty() || number.length() < 10) {
@@ -45,11 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 number="+91"+number;
 
-                String value = radioButton.getText().toString();
-                Log.e("MyMessage","value is "+value);
                 Intent intent = new Intent(SignUpActivity.this, OtpActivity.class);
                 intent.putExtra("phonenumber", number);
-                intent.putExtra("identity",value);
                 startActivity(intent);
             }
         });
@@ -62,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser!= null){
-            Intent intent=new Intent(this,NavigationActivity.class);
+            Intent intent=new Intent(this, NavigationCustomerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
