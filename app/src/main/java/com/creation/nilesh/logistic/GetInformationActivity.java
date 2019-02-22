@@ -26,8 +26,7 @@ public class GetInformationActivity extends AppCompatActivity {
     private String value;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase firebaseDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +49,14 @@ public class GetInformationActivity extends AppCompatActivity {
                 value = radioButton.getText().toString();
 
                 sendUserData();
-                Intent intent = new Intent(GetInformationActivity.this, OtpActivity.class);
-                intent.putExtra("identity",value);
-                startActivity(intent);
+                if(value.equals( "I am User")){
+                    Intent intent = new Intent(GetInformationActivity.this, NavigationCustomerActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(GetInformationActivity.this, NavigationDriver1Activity.class);
+                    startActivity(intent);
+                }
+
 
 
             }
@@ -65,15 +69,16 @@ public class GetInformationActivity extends AppCompatActivity {
         String email = userEmail.getText().toString();
         FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
+        String uId = firebaseAuth.getUid();
         FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
 
-        if(value == "I am User") {
-            DatabaseReference myRef= firebaseDatabase.getReference(firebaseAuth.getUid()).child("User").child("Customer");
+        if(value.equals( "I am User")) {
+            DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Customer").child(uId);
             CustomerData userProfile = new CustomerData(name, email);
             myRef.setValue(userProfile);
         }else {
-            DatabaseReference myRef= firebaseDatabase.getReference(firebaseAuth.getUid()).child("User").child("Transporter");
-            DriverData driverData = new DriverData(name,email,null);
+            DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Driver").child(uId);
+            DriverData driverData = new DriverData(name,email,"");
             myRef.setValue(driverData);
         }
     }

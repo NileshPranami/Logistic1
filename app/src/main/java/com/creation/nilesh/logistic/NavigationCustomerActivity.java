@@ -185,7 +185,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
                     driverRef.updateChildren(map);
 
                     getDriverLocation();
-                    mRequest.setText("Loogking for driver");
+                    mRequest.setText("Loogking for driver location");
                 }
             }
 
@@ -347,18 +347,14 @@ public class NavigationCustomerActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.e("MyMessage","onMapReady Started");
         mMap = googleMap;
-        Log.e("MyMessage","Check1");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
-        Log.e("MyMessage","Going to Location Permitted");
         buildGoogleApiClient();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            Log.e("MyMessage","Location Permitted");
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -378,32 +374,10 @@ public class NavigationCustomerActivity extends AppCompatActivity
 
             mLastLocation = location;
 
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference refAvailable = FirebaseDatabase.getInstance().getReference("driversAvailable");
-            DatabaseReference refWorking = FirebaseDatabase.getInstance().getReference("driversWorking");
-            GeoFire geoFireAvailable = new GeoFire(refAvailable);
-            GeoFire geoFireWorking = new GeoFire(refWorking);
-
-            switch (customerId){
-                case "":
-                    geoFireWorking.removeLocation(userId);
-                    geoFireAvailable.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
-
-                    break;
-
-                    default:
-                        geoFireAvailable.removeLocation(userId);
-                        geoFireWorking.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
-
-                        break;
-
-            }
-
 
 
         }
