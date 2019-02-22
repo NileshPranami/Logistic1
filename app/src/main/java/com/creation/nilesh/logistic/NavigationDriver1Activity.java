@@ -63,7 +63,7 @@ public class NavigationDriver1Activity extends AppCompatActivity
 
         supportMapFragment = SupportMapFragment.newInstance();
 
-        setContentView(R.layout.activity_navigation);
+        setContentView(R.layout.activity_navigation_driver1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
