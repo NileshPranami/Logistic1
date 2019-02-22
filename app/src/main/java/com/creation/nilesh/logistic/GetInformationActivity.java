@@ -52,9 +52,11 @@ public class GetInformationActivity extends AppCompatActivity {
                 if(value.equals( "I am User")){
                     Intent intent = new Intent(GetInformationActivity.this, NavigationCustomerActivity.class);
                     startActivity(intent);
+                    finish();
                 }else{
                     Intent intent = new Intent(GetInformationActivity.this, NavigationDriver1Activity.class);
                     startActivity(intent);
+                    finish();
                 }
 
 

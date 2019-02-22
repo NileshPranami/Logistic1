@@ -69,8 +69,8 @@ public class OtpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(OtpActivity.this, GetInformationActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
                             startActivity(intent);
+                            finish();
 
                         } else {
                             Toast.makeText(OtpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
