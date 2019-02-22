@@ -1,6 +1,8 @@
 package com.creation.nilesh.logistic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class GetInformationActivity extends AppCompatActivity {
     private String value;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
+    SharedPreferences identity;
+    String sharedIdentity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class GetInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_information);
 
 
+        identity = getSharedPreferences("SharedData", Context.MODE_PRIVATE);
+        sharedIdentity =identity.getString("MyIdentity","customer");
 
         radioGroup = findViewById(R.id.radioGroup);
         userName = findViewById(R.id.editText);
@@ -67,6 +73,8 @@ public class GetInformationActivity extends AppCompatActivity {
     }
 
     private void sendUserData() {
+
+        SharedPreferences.Editor editor = identity.edit();
         String name = userName.getText().toString();
         String email = userEmail.getText().toString();
         FirebaseAuth firebaseAuth;
@@ -75,10 +83,14 @@ public class GetInformationActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
 
         if(value.equals( "I am User")) {
+            editor.putString("MyIdentity","customer");
+            editor.commit();
             DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Customer").child(uId);
             CustomerData userProfile = new CustomerData(name, email);
             myRef.setValue(userProfile);
         }else {
+            editor.putString("MyIdentity","driver");
+            editor.commit();
             DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Driver").child(uId);
             DriverData driverData = new DriverData(name,email,"");
             myRef.setValue(driverData);

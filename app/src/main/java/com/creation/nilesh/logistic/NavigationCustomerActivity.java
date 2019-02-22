@@ -243,7 +243,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
                     loc1.setLongitude(driverLatLng.longitude);
 
                     float distance = loc1.distanceTo(loc2);
-                    mRequest.setText("DriverFound"+String.valueOf(distance));
+                    mRequest.setText("DriverFound "+String.valueOf(distance));
                     mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("Your Driver"));
                 }
             }

@@ -228,7 +228,6 @@ public class NavigationDriver1Activity extends AppCompatActivity
         buildGoogleApiClient();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            Log.e("MyMessage","Location Permitted");
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -297,9 +296,7 @@ public class NavigationDriver1Activity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         if(!currentLogOutStatus){
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driverAvailable");
-
             GeoFire geoFire = new GeoFire(ref);
             geoFire.removeLocation(userId);
         }

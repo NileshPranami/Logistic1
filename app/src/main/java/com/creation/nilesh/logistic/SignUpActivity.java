@@ -1,6 +1,8 @@
 package com.creation.nilesh.logistic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,14 +16,18 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
     private EditText editText;
     private FirebaseAuth mAuth;
+    SharedPreferences identity;
+    String sharedIdentity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth= FirebaseAuth.getInstance();
-        starter();
 
+        identity = getSharedPreferences("SharedData", Context.MODE_PRIVATE);
+        sharedIdentity =identity.getString("MyIdentity","customer");
+        starter();
 
     }
 
@@ -54,9 +60,15 @@ public class SignUpActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser!= null){
-            Intent intent=new Intent(this, NavigationCustomerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            if(sharedIdentity.equals("customer")) {
+                Intent intent = new Intent(this, NavigationCustomerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, NavigationDriver1Activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
 
         }
     }
