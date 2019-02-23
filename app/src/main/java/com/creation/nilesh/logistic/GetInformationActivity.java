@@ -85,13 +85,13 @@ public class GetInformationActivity extends AppCompatActivity {
         if(value.equals( "I am User")) {
             editor.putString("MyIdentity","customer");
             editor.commit();
-            DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Customer").child(uId);
+            DatabaseReference myRef= firebaseDatabase.getReference().child("Users").child("Customers").child(uId);
             CustomerData userProfile = new CustomerData(name, email);
             myRef.setValue(userProfile);
         }else {
             editor.putString("MyIdentity","driver");
             editor.commit();
-            DatabaseReference myRef= firebaseDatabase.getReference().child("User").child("Driver").child(uId);
+            DatabaseReference myRef= firebaseDatabase.getReference().child("Users").child("Drivers").child(uId);
             DriverData driverData = new DriverData(name,email,"");
             myRef.setValue(driverData);
         }

@@ -66,7 +66,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
     FirebaseUser mUser;
     private Boolean currentLogOutStatus= false;
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driverAvailable");
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
 
     private void getAssignedCustomer(){
         String driverId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference assignedCustomerRef = FirebaseDatabase.getInstance().getReference().child("User").child("Drivers").child(driverId).child("customerRideId");
+        DatabaseReference assignedCustomerRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverId).child("customerRideId");
         assignedCustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -181,7 +181,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
                     DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverFoundID);
                     String customerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     HashMap map = new HashMap();
-                    map.put("customerSideId",customerId);
+                    map.put("customerRideId",customerId);
                     driverRef.updateChildren(map);
 
                     getDriverLocation();
@@ -215,7 +215,7 @@ public class NavigationCustomerActivity extends AppCompatActivity
     }
     private Marker mDriverMarker;
     private void getDriverLocation(){
-        DatabaseReference driverLocationRef = FirebaseDatabase.getInstance().getReference().child("User").child("driversWorking").child(driverFoundID).child("l");
+        DatabaseReference driverLocationRef = FirebaseDatabase.getInstance().getReference().child("Users").child("driversWorking").child(driverFoundID).child("l");
         driverLocationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -243,7 +243,11 @@ public class NavigationCustomerActivity extends AppCompatActivity
                     loc1.setLongitude(driverLatLng.longitude);
 
                     float distance = loc1.distanceTo(loc2);
-                    mRequest.setText("DriverFound "+String.valueOf(distance));
+                    if (distance<100){
+                        mRequest.setText("Driver's Here");
+                    }else{
+                        mRequest.setText("Driver Found: " + String.valueOf(distance));
+                    }
                     mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("Your Driver"));
                 }
             }
@@ -410,12 +414,10 @@ public class NavigationCustomerActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-         if(!currentLogOutStatus){
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driverAvailable");
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
 
-            GeoFire geoFire = new GeoFire(ref);
-            geoFire.removeLocation(userId);
-        }
+        GeoFire geoFire = new GeoFire(ref);
+        geoFire.removeLocation(userId);
     }
 }

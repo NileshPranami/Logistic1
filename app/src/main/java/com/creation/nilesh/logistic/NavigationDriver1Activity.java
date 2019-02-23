@@ -53,9 +53,10 @@ public class NavigationDriver1Activity extends AppCompatActivity
     FirebaseUser mUser;
     private String customerId = "";
 
+
     private Boolean currentLogOutStatus= false;
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driverAvailable");
+    String driverId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,6 @@ public class NavigationDriver1Activity extends AppCompatActivity
         getAssignedCustomer();
     }
     private void  getAssignedCustomer(){
-        String driverId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference assignedCustomerRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverId).child("customerRideId");
         assignedCustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -295,10 +295,10 @@ public class NavigationDriver1Activity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        if(!currentLogOutStatus){
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driverAvailable");
-            GeoFire geoFire = new GeoFire(ref);
-            geoFire.removeLocation(userId);
-        }
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
+
+        GeoFire geoFire = new GeoFire(ref);
+        geoFire.removeLocation(userId);
     }
 }
