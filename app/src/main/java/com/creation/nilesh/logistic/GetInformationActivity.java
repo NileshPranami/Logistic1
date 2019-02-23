@@ -30,13 +30,14 @@ public class GetInformationActivity extends AppCompatActivity {
     private RadioButton radioButton;
     SharedPreferences identity;
     String sharedIdentity;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_information);
 
-
+        mAuth = FirebaseAuth.getInstance();
         identity = getSharedPreferences("SharedData", Context.MODE_PRIVATE);
         sharedIdentity =identity.getString("MyIdentity","customer");
 
@@ -86,13 +87,13 @@ public class GetInformationActivity extends AppCompatActivity {
             editor.putString("MyIdentity","customer");
             editor.commit();
             DatabaseReference myRef= firebaseDatabase.getReference().child("Users").child("Customers").child(uId);
-            CustomerData userProfile = new CustomerData(name, email);
+            CustomerData userProfile = new CustomerData(name, email,mAuth.getCurrentUser().getPhoneNumber());
             myRef.setValue(userProfile);
         }else {
             editor.putString("MyIdentity","driver");
             editor.commit();
             DatabaseReference myRef= firebaseDatabase.getReference().child("Users").child("Drivers").child(uId);
-            DriverData driverData = new DriverData(name,email,"");
+            DriverData driverData = new DriverData(name,email,"",mAuth.getCurrentUser().getPhoneNumber());
             myRef.setValue(driverData);
         }
     }

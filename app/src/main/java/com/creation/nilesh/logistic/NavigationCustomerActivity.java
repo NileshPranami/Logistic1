@@ -102,27 +102,30 @@ public class NavigationCustomerActivity extends AppCompatActivity
                 if(requestBol){
                     requestBol=false;
                     geoQuery.removeAllListeners();
-                    driverLocationRef.removeEventListener(driverLocationRefListner);
+                    if(driverLocationRefListner != null) {
+                        driverLocationRef.removeEventListener(driverLocationRefListner);
 
-                    if(driverFoundID !=null){
-                        DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverFoundID).child("customerRideId");
-                        driverRef.setValue(null);
-                        driverFoundID = null;
+                        if (driverFoundID != null) {
+                            DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverFoundID).child("customerRideId");
+                            driverRef.setValue(null);
+                            driverFoundID = null;
+                        }
+                        driverFound = false;
+                        radius = 1;
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
+                        GeoFire geoFire = new GeoFire(ref);
+                        geoFire.removeLocation(userId);
+
+                        if (pickupMarker != null) {
+                            Log.e("MyMessage", "check16");
+                            pickupMarker.remove();
+                        }
+                        if (mDriverMarker != null) {
+                            mDriverMarker.remove();
+                        }
+                        mRequest.setText("Call Uber");
                     }
-                    driverFound=false;
-                    radius=1;
-
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
-                    GeoFire geoFire= new GeoFire(ref);
-                    geoFire.removeLocation(userId);
-
-                    if(pickupMarker !=null){
-                        Log.e("MyMessage","check16");
-                        pickupMarker.remove();
-                        mDriverMarker.remove();
-                    }
-                    mRequest.setText("Call Uber");
-
                 }else{
                     requestBol=true;
 

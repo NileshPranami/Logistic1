@@ -2,11 +2,14 @@ package com.creation.nilesh.logistic;
 
 public class CustomerData {
 
-    String userName,userEmail;
+    String userName,userEmail,contactNumber;
 
-    public CustomerData(String userName, String userEmail) {
+    public CustomerData(){}
+
+    public CustomerData(String userName, String userEmail, String contactNumber) {
         this.userName = userName;
         this.userEmail = userEmail;
+        this.contactNumber = contactNumber;
     }
 
     public String getUserName() {
@@ -23,5 +26,13 @@ public class CustomerData {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 }

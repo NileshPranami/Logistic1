@@ -1,12 +1,19 @@
 package com.creation.nilesh.logistic;
 
 public class DriverData {
-    String driverName,driverEmail,vehicleType;
+    String driverName;
+    String driverEmail;
+    String vehicleType;
+    String contactNumber;
 
-    public DriverData(String driverName, String driverEmail, String vehicleType) {
+
+    public DriverData(){}
+
+    public DriverData(String driverName, String driverEmail, String vehicleType, String contactNumber) {
         this.driverName = driverName;
         this.driverEmail = driverEmail;
         this.vehicleType = vehicleType;
+        this.contactNumber = contactNumber;
     }
 
     public String getDriverName() {
@@ -31,5 +38,13 @@ public class DriverData {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 }

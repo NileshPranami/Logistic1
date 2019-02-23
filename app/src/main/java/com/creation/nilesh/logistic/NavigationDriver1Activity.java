@@ -18,7 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;
@@ -41,6 +46,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Map;
 
 public class NavigationDriver1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -54,6 +60,9 @@ public class NavigationDriver1Activity extends AppCompatActivity
     FirebaseUser mUser;
     private String customerId = "";
 
+    private LinearLayout mCustomerInfo;
+    private TextView mCustomerName, mCustomerPhone;
+
 
     private Boolean currentLogOutStatus= false;
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -66,17 +75,18 @@ public class NavigationDriver1Activity extends AppCompatActivity
         supportMapFragment = SupportMapFragment.newInstance();
 
         setContentView(R.layout.activity_navigation_driver1);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mCustomerName = findViewById(R.id.customerName);
+        mCustomerPhone = findViewById(R.id.customerPhone);
+        mCustomerInfo = findViewById(R.id.customerInfo);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         supportMapFragment.getMapAsync(this);
@@ -86,20 +96,27 @@ public class NavigationDriver1Activity extends AppCompatActivity
         getAssignedCustomer();
     }
     private void  getAssignedCustomer(){
+        Log.e("MyMessage","bCheck1");
         DatabaseReference assignedCustomerRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(driverId).child("customerRideId");
         assignedCustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    Log.e("MyMessage","bCheck2");
                     customerId = dataSnapshot.getValue().toString();
                     getAssignedCustomerPickupLocation();
+                    getAssignedCustomerInfo();
                 }else{
+                    Log.e("MyMessage","bCheck2");
                     customerId = "";
                     if(pickupMarker != null){
                         pickupMarker.remove();
                     }if(assignedCustomerPickupLocationRefListener !=null) {
                         assignedCustomerPickupLocationRef.removeEventListener(assignedCustomerPickupLocationRefListener);
                     }
+                    mCustomerInfo.setVisibility(View.GONE);
+                    mCustomerName.setText("");
+                    mCustomerPhone.setText("");
                 }
             }
 
@@ -138,9 +155,40 @@ public class NavigationDriver1Activity extends AppCompatActivity
         });
     }
 
+    private void getAssignedCustomerInfo(){
+        Log.e("MyMessage","bCheck3");
+        mCustomerInfo.setVisibility(View.VISIBLE);
+        DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child(customerId);
+
+
+        mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0){
+                    Log.e("MyMessage","bCheck4");
+                    CustomerData customerData=dataSnapshot.getValue(CustomerData.class);
+                    if(customerData.userName!=null){
+                        mCustomerName.setText(customerData.userName);
+                        Log.e("MyMessage","bCheck5"+customerData.userName);
+                    }
+                    if(customerData.contactNumber!=null){
+                        mCustomerPhone.setText(customerData.contactNumber);
+                        Log.e("MyMessage","bCheck4"+customerData.contactNumber);
+                    }
+                }
+                Log.e("MyMessage","bCheck5");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("MyMessage","bCheck6");
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -306,8 +354,7 @@ public class NavigationDriver1Activity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
+         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
 
         GeoFire geoFire = new GeoFire(ref);
         geoFire.removeLocation(userId);
