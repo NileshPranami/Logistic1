@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/Periwinkle">
 
     <TextView
         android:id="@+id/statusText"
@@ -12,24 +14,31 @@
 
     <TextView
         android:id="@+id/wlcmMsg"
-        android:layout_width="308dp"
-        android:layout_height="60dp"
-        android:textSize="32dp"
+        android:layout_width="163dp"
+        android:layout_height="204dp"
         android:layout_above="@+id/phoneText"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="114dp"
-        android:text="Welcome message" />
+        android:layout_marginEnd="199dp"
+        android:layout_marginBottom="158dp"
+        android:fontFamily="@font/g"
+        android:gravity="fill_vertical"
+        android:text="Welcome towards a new dawn."
+        android:textSize="28dp"
+        android:textColor="@color/Beetle_Green"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/phoneText"
-        android:layout_width="314dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sendButton"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="144dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="153dp"
         android:hint="phone"
+        android:textSize="25dp"
         android:inputType="phone" />
 
     <Button
@@ -39,16 +48,62 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="117dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="64dp"
         android:background="@color/colorPrimary"
         android:onClick="sendCode"
         android:text="Send Code"
         android:textColor="#FFF" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="184dp"
+        android:layout_height="131dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="29dp"
+        app:srcCompat="@drawable/logo" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="157dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="59dp"
+        android:fontFamily="@font/b"
+        android:text="LOdo"
+        android:textColor="@color/Black"
+        android:textSize="45dp"
+        android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="200dp"
+        android:layout_height="236dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="0dp"
+        app:srcCompat="@drawable/imgtr" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="373dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="208dp"
+        android:gravity="center_horizontal"
+        android:text="Please enter your mobile number to proceed"
+        android:textColor="@color/Blue_Eyes"
+        android:textSize="18dp"
+        android:textStyle="normal" />
 
 
 </RelativeLayout>

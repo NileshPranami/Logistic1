@@ -46,10 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/radioGroup"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="113dp"
+        android:layout_marginEnd="108dp"
         android:layout_marginBottom="118dp"
-        android:hint="Email \ Optional"
         android:ems="10"
+        android:hint="Email \ Optional"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -58,10 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="123dp"
+        android:layout_marginEnd="108dp"
         android:layout_marginBottom="59dp"
-        android:hint="Name"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
         android:text="Name" />
 
