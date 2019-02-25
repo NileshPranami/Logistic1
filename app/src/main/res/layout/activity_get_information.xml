@@ -41,7 +41,7 @@
         android:text="Button" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/radioGroup"
@@ -53,10 +53,10 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/editText2"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="123dp"
         android:layout_marginBottom="59dp"

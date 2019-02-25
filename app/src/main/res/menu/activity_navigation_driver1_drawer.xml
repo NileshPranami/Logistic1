@@ -42,9 +42,9 @@
             android:icon="@drawable/ic_rate"
             android:title="Rate Card" />
         <item
-            android:id="@+id/fav"
+            android:id="@+id/driver_setting"
             android:icon="@drawable/ic_favorite"
-            android:title="Favourite" />
+            android:title="Profile Setting" />
         <item
             android:id="@+id/finance"
             android:icon="@drawable/ic_finance"

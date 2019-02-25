@@ -10,4 +10,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_navigation_driver">Map</string>
     <string name="title_activity_navigation_driver1">NavigationDriver1Activity</string>
+    <string name="lodo">LOdo</string>
+    <string name="textview">QUALITY IS NOT AN ACT, IT\'S A HABIT</string>
+    <string name="welcome_towards_a_new_dawn">Welcome towards a new dawn</string>
+    <string name="todo">TODO</string>
 </resources>
