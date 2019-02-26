@@ -476,6 +476,9 @@ public class NavigationCustomerActivity extends AppCompatActivity
         } else if (id == R.id.nav_pr_cal) {
 
         } else if (id == R.id.nav_history) {
+            Intent intent = new Intent(NavigationCustomerActivity.this,HistoryActivity.class);
+            intent.putExtra("customerOrDriver","customer");
+            startActivity(intent);
 
         } else if (id == R.id.nav_services) {
 

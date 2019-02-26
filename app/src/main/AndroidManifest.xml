@@ -26,7 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DriverSettingsActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".DriverSettingsActivity" />
         <activity android:name=".CustomerSettingActivity" />
         <activity android:name=".GetInformationActivity" />
         <activity
@@ -49,8 +50,11 @@
             android:name=".NavigationCustomerActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".OtpActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".HistoryActivity"
+            android:label="History"/>
+        <activity
+            android:name=".OtpActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -61,9 +65,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpActivity"
+        <activity
+            android:name=".SignUpActivity"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

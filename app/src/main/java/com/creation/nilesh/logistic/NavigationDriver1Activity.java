@@ -414,6 +414,9 @@ public class NavigationDriver1Activity extends AppCompatActivity
         } else if (id == R.id.pr_cal) {
 
         } else if (id == R.id.history) {
+            Intent intent = new Intent(NavigationDriver1Activity.this,HistoryActivity.class);
+            intent.putExtra("customerOrDriver","driver");
+            startActivity(intent);
 
         } else if (id == R.id.services) {
 

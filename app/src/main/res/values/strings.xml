@@ -13,5 +13,11 @@
     <string name="lodo">LOdo</string>
     <string name="textview">QUALITY IS NOT AN ACT, IT\'S A HABIT</string>
     <string name="welcome_towards_a_new_dawn">Welcome towards a new dawn</string>
+    <string name="head1">Select a payment method</string>
+    <string name="cod">COD</string>
+    <string name="prepaid">PREPAID</string>
+    <string name="congo">CONGRATULATION</string>
+    <string name="psfl">Payment Successful</string>
+    <string name="note">NOTE : Under Devlopment</string>
     <string name="todo">TODO</string>
 </resources>
